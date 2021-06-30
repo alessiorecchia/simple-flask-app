@@ -3,7 +3,7 @@ from flask import Flask,render_template
 
 app = Flask(__name__)
 
-APP_NAME="Ubeyt's Portfolio"
+APP_NAME="Ubeyt Demir"
 
 social_links = [{
     "name":"Twitter",
@@ -19,19 +19,41 @@ social_links = [{
 </svg>"""
 }]
 
-MENU_ITEMS= ["about","projects","backoffice"]
+
+
+my_projects = [
+    {
+        "title":"Project A",
+        "description":"Project A description",
+        "cover":"https://analyticsindiamag.com/wp-content/uploads/2021/04/aim_openCV.png",
+        "liveLink":"https://github.com",
+        "githubLink":"https://github.com"
+    },
+     {
+        "title":"Project B",
+        "description":"Project B description",
+        "cover":"http://placehold.it/300x300",
+        "liveLink":"https://github.com",
+        "githubLink":"https://github.com"
+    },
+    {
+        "title":"Project C",
+        "description":"Project C description",
+        "cover":"http://placehold.it/300x300",
+        "liveLink":"https://github.com",
+        "githubLink":"https://github.com"
+    }
+]
+
+MENU_ITEMS= [{"label":"About","link":"#about"},{"label":"Projects","link":"#projects"},{"label":"Backoffice","link":"/backoffice"}]
 
 @app.route("/")
 def index():
-    return render_template('/views/home.html',APP_NAME=APP_NAME,MENU_ITEMS=MENU_ITEMS,social_links=social_links)
-
-@app.route("/about")
-def about():
-    return render_template('/about/index.html',APP_NAME=APP_NAME,MENU_ITEMS=MENU_ITEMS)
-
+    return render_template('/views/home.html',APP_NAME=APP_NAME,MENU_ITEMS=MENU_ITEMS,social_links=social_links,my_projects=my_projects)
+ 
 @app.route("/projects")
 def projects():
-    return  "<h1>Projects</h1>"
+    return  render_template("/views/projects/index.html",APP_NAME=APP_NAME,MENU_ITEMS=MENU_ITEMS,my_projects=my_projects)
 
 
 @app.route("/backoffice")

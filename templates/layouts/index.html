@@ -24,10 +24,13 @@
     <title>{{APP_NAME}} | {% block title %} {% endblock %}</title>
   </head>
   <body>
+    
     {{ NavbarComponent(APP_NAME,MENU_ITEMS)}}
      
-    {% block content %} {% endblock %}
-
+    {% block content %}
+  
+    {% endblock %}
+   
     {{FooterComponent()}}
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
