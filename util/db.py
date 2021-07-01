@@ -2,6 +2,7 @@ import os
 
 from uuid import uuid4
 
+
 def read_db():
     db_path = "./util/db.csv"
     projects = []
@@ -11,6 +12,7 @@ def read_db():
             if(len(line) != 0):
                 array = line.split(",")
                 projects.append(array)
+
     return projects
 
 
