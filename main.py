@@ -2,7 +2,7 @@ from flask import Flask,render_template,request,redirect,url_for,send_from_direc
 from constants.items import *
 import os
 from werkzeug.utils import secure_filename
-from util.db import read_db,write_project
+from util.db import read_db,write_project,find_project_by_id,find_project_by_id_and_delete
 app = Flask(__name__)
 
 app.config["UPLOAD_FOLDER"]="files"
@@ -33,8 +33,18 @@ def files():
 @app.route("/dashboard/projects")
 def projects():
     all_projects = read_db()
-    print(all_projects)
     return render_template("/views/projects/index.html",APP_NAME=APP_NAME,DASHBOARD_MENU=DASHBOARD_MENU,all_projects=all_projects)
+
+
+@app.route("/dashboard/projects/<string:id>",methods=["GET","POST"])
+def project_actions(id):
+    if request.method=="POST":
+        find_project_by_id_and_delete(id)
+        return redirect(url_for("projects"))
+    else:
+        project = find_project_by_id(id)
+        print(project)
+        return redirect(url_for("projects"))
 
 
 @app.route("/dashboard/projects/new",methods=["GET","POST"])
@@ -59,7 +69,6 @@ def file_actions(filename):
     if request.method=="POST":
         os.remove(file_path)
         return redirect(url_for("files"))
-       # FİLE UPLOAD
     else:
         return send_from_directory(path=app.root_path,directory=app.config["UPLOAD_FOLDER"],filename=filename)
 
