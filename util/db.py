@@ -2,9 +2,6 @@ import os
 
 from uuid import uuid4
 
-import pandas as pd
-
-
 def read_db():
     db_path = "./util/db.csv"
     projects = []
@@ -18,13 +15,11 @@ def read_db():
 
 
 def write_project(title, description, cover, githubLink, liveLink):
-    line = "{},{},{},{},{},{}".format(
-        uuid4(), title, description, cover, githubLink, liveLink)
+    line = "{},{},{},{},{},{}".format(uuid4(), title, description, cover, githubLink, liveLink)
     db_path = "./util/db.csv"
     with open(db_path, 'r+') as f:
         lines = f.readlines()
         if(len(lines) == 0):
-            f.write("id,title,description,cover,githubLink,liveLink")
             f.write(f'{line}')
         else:
             f.write(f'\n{line}')
