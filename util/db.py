@@ -14,7 +14,6 @@ def read_db():
             if(len(line) != 0):
                 array = line.split(",")
                 projects.append(array)
-    projects.pop(0)
     return projects
 
 
@@ -48,7 +47,9 @@ def find_project_by_id_and_delete(id):
     lines = a_file.readlines()
     a_file.close()
     # delete lines
-    del lines[1]
+    for i, line in enumerate(lines):
+        if line.split(',')[0] == id:
+            lines.pop(i)
     # write to file without line
     new_file = open(db_path, "w+")
     for line in lines:
